@@ -1,8 +1,15 @@
 import { createClerkClient } from '@clerk/backend'
 
-const clerkClient = createClerkClient({
-  secretKey: process.env.CLERK_SECRET_KEY,
-})
+let clerkClient
+
+function getClerk() {
+  if (!clerkClient) {
+    clerkClient = createClerkClient({
+      secretKey: process.env.CLERK_SECRET_KEY,
+    })
+  }
+  return clerkClient
+}
 
 const authenticate = async (req, res, next) => {
   const header = req.headers.authorization
@@ -11,7 +18,7 @@ const authenticate = async (req, res, next) => {
   }
   try {
     const token = header.split(' ')[1]
-    const claims = await clerkClient.verifyToken(token)
+    const claims = await getClerk().verifyToken(token)
     req.user = claims
     next()
   } catch {
