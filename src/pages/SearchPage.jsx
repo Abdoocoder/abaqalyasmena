@@ -1,10 +1,11 @@
+import { useState, useEffect } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
-import { CATEGORIES, PRODUCTS } from '../constants/data';
 import WhatsAppButton from '../components/WhatsAppButton';
 import PageTransition from '../components/PageTransition';
 import MagneticButton from '../components/MagneticButton';
 import Icon from '../components/Icon';
 import { motion } from 'framer-motion';
+import { api } from '../services/api';
 
 const springCard = {
   hidden: { opacity: 0, y: 20 },
@@ -18,15 +19,24 @@ const springCard = {
 const SearchPage = () => {
   const [searchParams] = useSearchParams();
   const q = searchParams.get('q') || '';
+  const [products, setProducts] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(false);
 
-  const query = q.trim().toLowerCase();
-
-  const matchedProducts = PRODUCTS.filter(p =>
-    p.nameAr.includes(query) || p.name.toLowerCase().includes(query) || p.brand.toLowerCase().includes(query)
-  );
-  const matchedCategories = CATEGORIES.filter(c =>
-    c.nameAr.includes(query) || c.name.toLowerCase().includes(query)
-  );
+  useEffect(() => {
+    if (!q.trim()) return;
+    setLoading(true);
+    Promise.all([
+      api.getProducts({ search: q }),
+      api.getCategories(),
+    ]).then(([prods, cats]) => {
+      setProducts(prods);
+      const query = q.toLowerCase();
+      setCategories(cats.filter(c =>
+        c.name_ar.includes(query) || c.name.toLowerCase().includes(query)
+      ));
+    }).catch(() => {}).finally(() => setLoading(false));
+  }, [q]);
 
   return (
     <PageTransition>
@@ -39,97 +49,103 @@ const SearchPage = () => {
           </nav>
           <h1 className="animate-fade-up text-display-lg font-display-lg text-on-surface mb-stack-sm" style={{ animationDelay: '80ms' }}>نتائج البحث عن "{q}"</h1>
           <p className="animate-fade-up text-body-base text-on-surface-variant" style={{ animationDelay: '160ms' }}>
-            {matchedProducts.length + matchedCategories.length} نتيجة
+            {products.length + categories.length} نتيجة
           </p>
         </header>
 
-        {matchedCategories.length > 0 && (
-          <section className="mb-stack-lg">
-            <h2 className="text-headline-md font-headline-md text-on-surface mb-stack-md">التصنيفات</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter">
-              {matchedCategories.map((cat, i) => (
-                <motion.div
-                  key={cat.id}
-                  variants={springCard}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true, margin: '-40px' }}
-                  custom={i}
-                >
-                  <Link
-                    to={`/category/${cat.id}`}
-                    className="group relative block overflow-hidden rounded-xl bg-surface-container-lowest dark:bg-surface-container-lowest-dark shadow-ambient transition-transform duration-200 ease-out-strong hover:-translate-y-1 hover:shadow-ambient-hover aspect-[4/5] active:scale-[0.97]"
-                  >
-                    <div className="absolute inset-0 bg-surface-container-highest dark:bg-surface-container-highest-dark">
-                      <img src={cat.image} loading="lazy" className="w-full h-full object-cover opacity-80 transition-transform duration-500 ease-out-strong group-hover:scale-105" alt={cat.nameAr} />
-                    </div>
-                    <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-inverse-surface/90 to-transparent flex items-end justify-between">
-                      <div>
-                        <span className="text-label-caps font-label-caps text-primary-fixed tracking-wider mb-1 block uppercase pulse-soft">{cat.tagline}</span>
-                        <h3 className="text-headline-md font-headline-md text-on-primary font-bold">{cat.nameAr}</h3>
-                      </div>
-                      <div className="w-10 h-10 rounded-full bg-primary/90 flex items-center justify-center text-on-primary transition-all duration-200 ease-out-strong group-hover:opacity-100 opacity-0 -translate-x-2 group-hover:translate-x-0">
-                        <Icon name="arrow_back" className="w-5 h-5" />
-                      </div>
-                    </div>
-                  </Link>
-                </motion.div>
-              ))}
-            </div>
-          </section>
-        )}
+        {loading ? (
+          <p className="text-on-surface-variant">جاري البحث...</p>
+        ) : (
+          <>
+            {categories.length > 0 && (
+              <section className="mb-stack-lg">
+                <h2 className="text-headline-md font-headline-md text-on-surface mb-stack-md">التصنيفات</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter">
+                  {categories.map((cat, i) => (
+                    <motion.div
+                      key={cat.id}
+                      variants={springCard}
+                      initial="hidden"
+                      whileInView="visible"
+                      viewport={{ once: true, margin: '-40px' }}
+                      custom={i}
+                    >
+                      <Link
+                        to={`/category/${cat.id}`}
+                        className="group relative block overflow-hidden rounded-xl bg-surface-container-lowest dark:bg-surface-container-lowest-dark shadow-ambient transition-transform duration-200 ease-out-strong hover:-translate-y-1 hover:shadow-ambient-hover aspect-[4/5] active:scale-[0.97]"
+                      >
+                        <div className="absolute inset-0 bg-surface-container-highest dark:bg-surface-container-highest-dark">
+                          {cat.image_url && <img src={cat.image_url} loading="lazy" className="w-full h-full object-cover opacity-80 transition-transform duration-500 ease-out-strong group-hover:scale-105" alt={cat.name_ar} />}
+                        </div>
+                        <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-inverse-surface/90 to-transparent flex items-end justify-between">
+                          <div>
+                            {cat.tagline && <span className="text-label-caps font-label-caps text-primary-fixed tracking-wider mb-1 block uppercase pulse-soft">{cat.tagline}</span>}
+                            <h3 className="text-headline-md font-headline-md text-on-primary font-bold">{cat.name_ar}</h3>
+                          </div>
+                          <div className="w-10 h-10 rounded-full bg-primary/90 flex items-center justify-center text-on-primary transition-all duration-200 ease-out-strong group-hover:opacity-100 opacity-0 -translate-x-2 group-hover:translate-x-0">
+                            <Icon name="arrow_back" className="w-5 h-5" />
+                          </div>
+                        </div>
+                      </Link>
+                    </motion.div>
+                  ))}
+                </div>
+              </section>
+            )}
 
-        {matchedProducts.length > 0 && (
-          <section>
-            <h2 className="text-headline-md font-headline-md text-on-surface mb-stack-md">المنتجات</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-gutter">
-              {matchedProducts.map((product, i) => (
-                <motion.div
-                  key={product.id}
-                  className="bg-surface-container-lowest dark:bg-surface-container-lowest-dark rounded-xl overflow-hidden shadow-sm transition-transform duration-200 ease-out-strong hover:-translate-y-1 hover:shadow-md border border-primary/10 flex flex-col"
-                  variants={springCard}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true, margin: '-40px' }}
-                  custom={i}
-                >
-                  <div className="aspect-[3/4] bg-surface-container-low dark:bg-surface-container-low-dark overflow-hidden relative">
-                    {product.discount && (
-                      <span className="absolute top-3 left-3 bg-tertiary text-on-tertiary text-label-caps font-label-caps px-2 py-1 rounded-full z-10 pulse-soft">{product.discount}</span>
-                    )}
-                    <img src={product.image} loading="lazy" className="w-full h-full object-cover transition-transform duration-500 ease-out-strong hover:scale-105" alt={product.nameAr} />
-                  </div>
-                  <div className="p-4 flex flex-col gap-3 flex-1">
-                    <div className="flex items-center justify-between">
-                      <span className="text-label-caps font-label-caps text-secondary bg-secondary-container px-2 py-1 rounded-full">{product.brand}</span>
-                      <span className="text-primary font-bold">{product.price.toFixed(2)} JOD</span>
-                    </div>
-                    <h3 className="font-body-base text-body-base font-medium text-on-surface">{product.nameAr}</h3>
-                    <div className="mt-auto">
-                      <WhatsAppButton productName={product.nameAr} variant="outline" className="w-full justify-center" />
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </section>
-        )}
+            {products.length > 0 && (
+              <section>
+                <h2 className="text-headline-md font-headline-md text-on-surface mb-stack-md">المنتجات</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-gutter">
+                  {products.map((product, i) => (
+                    <motion.div
+                      key={product.id}
+                      className="bg-surface-container-lowest dark:bg-surface-container-lowest-dark rounded-xl overflow-hidden shadow-sm transition-transform duration-200 ease-out-strong hover:-translate-y-1 hover:shadow-md border border-primary/10 flex flex-col"
+                      variants={springCard}
+                      initial="hidden"
+                      whileInView="visible"
+                      viewport={{ once: true, margin: '-40px' }}
+                      custom={i}
+                    >
+                      <div className="aspect-[3/4] bg-surface-container-low dark:bg-surface-container-low-dark overflow-hidden relative">
+                        {product.discount && (
+                          <span className="absolute top-3 left-3 bg-tertiary text-on-tertiary text-label-caps font-label-caps px-2 py-1 rounded-full z-10 pulse-soft">{product.discount}</span>
+                        )}
+                        {product.image_url && <img src={product.image_url} loading="lazy" className="w-full h-full object-cover transition-transform duration-500 ease-out-strong hover:scale-105" alt={product.name_ar} />}
+                      </div>
+                      <div className="p-4 flex flex-col gap-3 flex-1">
+                        <div className="flex items-center justify-between">
+                          {product.brand && <span className="text-label-caps font-label-caps text-secondary bg-secondary-container px-2 py-1 rounded-full">{product.brand}</span>}
+                          <span className="text-primary font-bold">{parseFloat(product.price).toFixed(2)} JOD</span>
+                        </div>
+                        <h3 className="font-body-base text-body-base font-medium text-on-surface">{product.name_ar}</h3>
+                        <div className="mt-auto">
+                          <WhatsAppButton productName={product.name_ar} variant="outline" className="w-full justify-center" />
+                        </div>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              </section>
+            )}
 
-        {matchedCategories.length === 0 && matchedProducts.length === 0 && (
-          <div className="flex flex-col items-center justify-center py-24 text-center">
-            <Icon name="search_off" className="w-20 h-20 text-outline mb-4" />
-            <h2 className="text-headline-md text-on-surface mb-2">لا توجد نتائج</h2>
-            <p className="max-w-readable text-body-base text-on-surface-variant mb-stack-lg">
-              عذراً، لا توجد نتائج مطابقة لـ "{q}". جرب كلمات بحث أخرى
-            </p>
-            <MagneticButton
-              as={Link}
-              to="/categories"
-              className="bg-tertiary text-on-tertiary font-label-caps text-label-caps px-8 py-4 rounded-xl shadow-ambient"
-            >
-              تصفح التصنيفات
-            </MagneticButton>
-          </div>
+            {categories.length === 0 && products.length === 0 && (
+              <div className="flex flex-col items-center justify-center py-24 text-center">
+                <Icon name="search_off" className="w-20 h-20 text-outline mb-4" />
+                <h2 className="text-headline-md text-on-surface mb-2">لا توجد نتائج</h2>
+                <p className="max-w-readable text-body-base text-on-surface-variant mb-stack-lg">
+                  عذراً، لا توجد نتائج مطابقة لـ "{q}". جرب كلمات بحث أخرى
+                </p>
+                <MagneticButton
+                  as={Link}
+                  to="/categories"
+                  className="bg-tertiary text-on-tertiary font-label-caps text-label-caps px-8 py-4 rounded-xl shadow-ambient"
+                >
+                  تصفح التصنيفات
+                </MagneticButton>
+              </div>
+            )}
+          </>
         )}
       </main>
     </PageTransition>

@@ -1,10 +1,11 @@
+import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import WhatsAppButton from '../components/WhatsAppButton';
-import { CATEGORIES, PRODUCTS } from '../constants/data';
 import PageTransition from '../components/PageTransition';
 import MagneticButton from '../components/MagneticButton';
 import Icon from '../components/Icon';
 import { motion } from 'framer-motion';
+import { api } from '../services/api';
 
 const springCard = {
   hidden: { opacity: 0, y: 20 },
@@ -17,8 +18,30 @@ const springCard = {
 
 const CategoryPage = () => {
   const { id } = useParams();
-  const category = CATEGORIES.find(c => c.id === id);
-  const products = PRODUCTS.filter(p => p.categoryId === id);
+  const [category, setCategory] = useState(null);
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setLoading(true);
+    Promise.all([
+      api.getCategory(id).catch(() => null),
+      api.getProducts({ category_id: id }),
+    ]).then(([cat, prods]) => {
+      setCategory(cat);
+      setProducts(prods);
+    }).catch(() => {}).finally(() => setLoading(false));
+  }, [id]);
+
+  if (loading) {
+    return (
+      <PageTransition>
+        <main className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-stack-lg min-h-[60vh] flex items-center justify-center">
+          <p className="text-on-surface-variant">جاري التحميل...</p>
+        </main>
+      </PageTransition>
+    );
+  }
 
   if (!category) {
     return (
@@ -53,10 +76,10 @@ const CategoryPage = () => {
               <Icon name="chevron_left" className="w-4 h-4" />
               <Link to="/categories" className="hover:text-primary transition-colors duration-160 ease-out-strong active:scale-[0.97] font-body-sm text-body-sm">التصنيفات</Link>
               <Icon name="chevron_left" className="w-4 h-4" />
-              <span className="text-on-surface font-medium font-body-sm text-body-sm">{category.nameAr}</span>
+              <span className="text-on-surface font-medium font-body-sm text-body-sm">{category.name_ar}</span>
             </nav>
             <h1 className="animate-fade-up text-display-lg font-display-lg text-primary flex items-baseline gap-4" style={{ animationDelay: '80ms' }}>
-              {category.nameAr}
+              {category.name_ar}
               <span className="font-body-base text-body-base text-on-surface-variant font-normal">({products.length} منتجات)</span>
             </h1>
           </div>
@@ -68,7 +91,7 @@ const CategoryPage = () => {
             <div className="flex flex-col gap-3">
               <h3 className="font-label-caps text-label-caps text-secondary">الماركة</h3>
                 <div className="flex flex-col gap-2">
-                  {Array.from(new Set(products.map(p => p.brand))).map(brand => (
+                  {Array.from(new Set(products.map(p => p.brand).filter(Boolean))).map(brand => (
                     <span key={brand} className="text-on-surface-variant font-body-sm text-body-sm">{brand}</span>
                   ))}
                 </div>
@@ -98,24 +121,24 @@ const CategoryPage = () => {
                       {product.discount && (
                         <span className="absolute top-3 left-3 bg-tertiary text-on-tertiary text-label-caps font-label-caps px-2 py-1 rounded-full z-10 pulse-soft">{product.discount}</span>
                       )}
-                      <img src={product.image} loading="lazy" className="w-full h-full object-cover transition-transform duration-500 ease-out-strong hover:scale-105" alt={product.nameAr} />
+                      {product.image_url && <img src={product.image_url} loading="lazy" className="w-full h-full object-cover transition-transform duration-500 ease-out-strong hover:scale-105" alt={product.name_ar} />}
                       <span className="absolute top-3 right-3 bg-surface-container-lowest text-on-surface-variant p-2 rounded-full shadow-sm">
                         <Icon name="favorite" className="w-5 h-5" />
                       </span>
                     </div>
                     <div className="p-4 flex flex-col gap-3 flex-1">
                       <div className="flex items-center justify-between">
-                        <span className="text-label-caps font-label-caps text-secondary bg-secondary-container px-2 py-1 rounded-full">{product.brand}</span>
+                        {product.brand && <span className="text-label-caps font-label-caps text-secondary bg-secondary-container px-2 py-1 rounded-full">{product.brand}</span>}
                         <div className="flex flex-col items-end">
-                          <span className="text-primary font-bold">{product.price.toFixed(2)} JOD</span>
-                          {product.oldPrice && (
-                            <span className="text-on-surface-variant text-sm line-through">{product.oldPrice.toFixed(2)} JOD</span>
+                          <span className="text-primary font-bold">{parseFloat(product.price).toFixed(2)} JOD</span>
+                          {product.old_price && (
+                            <span className="text-on-surface-variant text-sm line-through">{parseFloat(product.old_price).toFixed(2)} JOD</span>
                           )}
                         </div>
                       </div>
-                      <h3 className="font-body-base text-body-base font-medium text-on-surface">{product.nameAr}</h3>
+                      <h3 className="font-body-base text-body-base font-medium text-on-surface">{product.name_ar}</h3>
                       <div className="mt-auto">
-                        <WhatsAppButton productName={product.nameAr} variant="outline" className="w-full justify-center" />
+                        <WhatsAppButton productName={product.name_ar} variant="outline" className="w-full justify-center" />
                       </div>
                     </div>
                   </motion.div>
