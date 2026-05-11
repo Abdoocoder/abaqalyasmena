@@ -92,7 +92,7 @@ const Home = () => {
             {contact && (
               <>
                 <motion.div
-                  className="bg-surface-container-lowest dark:bg-surface-container-lowest-dark rounded-xl p-stack-md shadow-ambient border border-primary/10 lg:col-span-2 flex items-start space-x-reverse space-x-stack-sm"
+                  className="bg-surface-container-lowest dark:bg-surface-container-lowest-dark rounded-xl p-stack-md shadow-ambient lg:col-span-2 flex items-start space-x-reverse space-x-stack-sm"
                   variants={springUp}
                   initial="hidden"
                   whileInView="visible"
@@ -108,7 +108,7 @@ const Home = () => {
                   </div>
                 </motion.div>
                 <motion.div
-                  className="bg-surface-container-lowest dark:bg-surface-container-lowest-dark rounded-xl p-stack-md shadow-ambient border border-primary/10 flex items-start space-x-reverse space-x-stack-sm"
+                  className="bg-surface-container-lowest dark:bg-surface-container-lowest-dark rounded-xl p-stack-md shadow-ambient flex items-start space-x-reverse space-x-stack-sm"
                   variants={springUp}
                   initial="hidden"
                   whileInView="visible"
@@ -124,7 +124,7 @@ const Home = () => {
                   </div>
                 </motion.div>
                 <motion.div
-                  className="bg-surface-container-lowest dark:bg-surface-container-lowest-dark rounded-xl p-stack-md shadow-ambient border border-primary/10 flex items-start space-x-reverse space-x-stack-sm"
+                  className="bg-surface-container-lowest dark:bg-surface-container-lowest-dark rounded-xl p-stack-md shadow-ambient flex items-start space-x-reverse space-x-stack-sm"
                   variants={springUp}
                   initial="hidden"
                   whileInView="visible"

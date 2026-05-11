@@ -48,11 +48,11 @@ const ContactSettings = () => {
 
   if (loading) return (
     <div>
-      <h1 className="text-display-lg font-display-lg text-on-surface mb-6">بيانات الاتصال</h1>
-      <div className="bg-surface-container-lowest rounded-xl shadow-ambient p-6 max-w-2xl">
+      <h1 className="text-display-lg font-display-lg text-on-surface mb-6 animate-fade-down">بيانات الاتصال</h1>
+      <div className="bg-surface-container-lowest rounded-xl shadow-ambient p-6 max-w-2xl animate-fade-up">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
           {Array.from({ length: 8 }).map((_, i) => (
-            <div key={i}>
+            <div key={i} className="animate-fade-in" style={{ animationDelay: `${i * 30}ms` }}>
               <Skeleton className="h-4 w-24 mb-2" />
               <Skeleton className="h-12 w-full" />
             </div>
@@ -64,9 +64,9 @@ const ContactSettings = () => {
 
   return (
     <div>
-      <h1 className="text-display-lg font-display-lg text-on-surface mb-6">بيانات الاتصال</h1>
+      <h1 className="text-display-lg font-display-lg text-on-surface mb-6 animate-fade-down">بيانات الاتصال</h1>
 
-      <form onSubmit={handleSubmit} className="bg-surface-container-lowest rounded-xl shadow-ambient p-6 max-w-2xl">
+      <form onSubmit={handleSubmit} className="bg-surface-container-lowest rounded-xl shadow-ambient p-6 max-w-2xl animate-fade-up">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
           <div>
             <label className="block font-body-sm text-body-sm text-on-surface mb-1">رقم الهاتف</label>

@@ -55,9 +55,9 @@ const OffersManager = () => {
 
   return (
     <div>
-      <h1 className="text-display-lg font-display-lg text-on-surface mb-6">إدارة العروض</h1>
+      <h1 className="text-display-lg font-display-lg text-on-surface mb-6 animate-fade-down">إدارة العروض</h1>
 
-      <form onSubmit={handleSubmit} className="bg-surface-container-lowest rounded-xl shadow-ambient p-6 mb-6">
+      <form onSubmit={handleSubmit} className="bg-surface-container-lowest rounded-xl shadow-ambient p-6 mb-6 animate-fade-up">
         <h2 className="text-headline-md font-headline-md text-on-surface mb-4">{editing ? 'تعديل عرض' : 'إضافة عرض جديد'}</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
           <input placeholder="العنوان (إنجليزي)" value={form.title} onChange={e => setForm(f => ({ ...f, title: e.target.value }))}
@@ -101,7 +101,7 @@ const OffersManager = () => {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {offers.map((offer, i) => (
-            <div key={offer.id} className="bg-surface-container-lowest rounded-xl shadow-ambient p-4 flex gap-4 transition-transform duration-200 ease-out-strong hover:-translate-y-1 hover:shadow-ambient-hover" style={{ animationDelay: `${i * 60}ms` }}>
+            <div key={offer.id} className="bg-surface-container-lowest rounded-xl shadow-ambient p-4 flex gap-4 transition-transform duration-200 ease-out-strong hover:-translate-y-1 hover:shadow-ambient-hover animate-scale-in" style={{ animationDelay: `${i * 60}ms` }}>
               {offer.image_url && <img src={offer.image_url} alt={offer.title_ar} className="w-24 h-24 object-cover rounded-lg flex-shrink-0 transition-transform duration-160 ease-out-strong hover:scale-105" />}
               <div className="flex-1">
                 <h3 className="font-headline-md text-on-surface mb-1">{offer.title_ar}</h3>

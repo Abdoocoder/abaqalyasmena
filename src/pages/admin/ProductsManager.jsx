@@ -60,9 +60,9 @@ const ProductsManager = () => {
 
   return (
     <div>
-      <h1 className="text-display-lg font-display-lg text-on-surface mb-6">إدارة المنتجات</h1>
+      <h1 className="text-display-lg font-display-lg text-on-surface mb-6 animate-fade-down">إدارة المنتجات</h1>
 
-      <form onSubmit={handleSubmit} className="bg-surface-container-lowest rounded-xl shadow-ambient p-6 mb-6">
+      <form onSubmit={handleSubmit} className="bg-surface-container-lowest rounded-xl shadow-ambient p-6 mb-6 animate-fade-up">
         <h2 className="text-headline-md font-headline-md text-on-surface mb-4">{editing ? 'تعديل منتج' : 'إضافة منتج جديد'}</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
           <select value={form.category_id} onChange={e => setForm(f => ({ ...f, category_id: e.target.value }))}
@@ -124,7 +124,7 @@ const ProductsManager = () => {
             </thead>
             <tbody>
               {products.map((p, i) => (
-                <tr key={p.id} className="border-t border-surface-variant hover:bg-surface-container-low/50 transition-colors duration-160" style={{ animationDelay: `${i * 40}ms` }}>
+                <tr key={p.id} className="border-t border-surface-variant hover:bg-surface-container-low/50 transition-colors duration-160 animate-fade-in" style={{ animationDelay: `${i * 30}ms` }}>
                   <td className="p-4">
                     {p.image_url
                       ? <img src={p.image_url} className="w-12 h-12 object-cover rounded-lg transition-transform duration-160 ease-out-strong hover:scale-110" alt="" />

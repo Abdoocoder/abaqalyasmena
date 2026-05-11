@@ -30,9 +30,23 @@ const Offers = () => {
         </header>
 
         {loading ? (
-          <p className="text-on-surface-variant">جاري التحميل...</p>
+          <div className="flex flex-col gap-8">
+            {[1,2].map(i => (
+              <div key={i} className="animate-fade-in bg-surface-container-lowest rounded-3xl overflow-hidden flex flex-col md:flex-row shadow-ambient" style={{ animationDelay: `${i * 80}ms` }}>
+                <div className="w-full md:w-2/5 h-64 md:h-auto bg-surface-container animate-pulse relative">
+                  <div className="absolute inset-0 skeleton-shimmer animate-shimmer" />
+                </div>
+                <div className="p-8 md:p-10 flex-1 space-y-3">
+                  <div className="bg-surface-container rounded-full h-6 w-24 skeleton-shimmer animate-shimmer" />
+                  <div className="bg-surface-container rounded-xl h-8 w-3/4 skeleton-shimmer animate-shimmer" />
+                  <div className="bg-surface-container rounded-xl h-5 w-1/2 skeleton-shimmer animate-shimmer" />
+                  <div className="bg-surface-container rounded-xl h-4 w-2/3 skeleton-shimmer animate-shimmer" />
+                </div>
+              </div>
+            ))}
+          </div>
         ) : offers.length === 0 ? (
-          <div className="bg-surface-container-lowest rounded-xl shadow-ambient p-8 text-center border border-primary/10">
+          <div className="bg-surface-container-lowest rounded-xl shadow-ambient p-8 text-center">
             <p className="text-on-surface-variant font-body-base text-body-base">لا توجد عروض حالياً</p>
           </div>
         ) : (
@@ -40,7 +54,7 @@ const Offers = () => {
             {offers.map((bundle, i) => (
               <motion.div
                 key={bundle.id}
-                className="bg-surface-container-lowest dark:bg-surface-container-lowest-dark rounded-3xl overflow-hidden flex flex-col md:flex-row items-stretch shadow-ambient border border-primary/10 transition-shadow duration-200 ease-out-strong hover:shadow-ambient-hover"
+                className="bg-surface-container-lowest dark:bg-surface-container-lowest-dark rounded-3xl overflow-hidden flex flex-col md:flex-row items-stretch shadow-ambient transition-shadow duration-200 ease-out-strong hover:shadow-ambient-hover"
                 variants={springBundle}
                 initial="hidden"
                 whileInView="visible"

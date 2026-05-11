@@ -21,7 +21,7 @@ const OrdersManager = () => {
 
   return (
     <div>
-      <h1 className="text-display-lg font-display-lg text-on-surface mb-6">إدارة الطلبات</h1>
+      <h1 className="text-display-lg font-display-lg text-on-surface mb-6 animate-fade-down">إدارة الطلبات</h1>
 
       {loading ? (
         <div className="flex flex-col gap-4">
@@ -36,7 +36,7 @@ const OrdersManager = () => {
       ) : (
         <div className="flex flex-col gap-4">
           {orders.map((order, i) => (
-            <div key={order.id} className="bg-surface-container-lowest rounded-xl shadow-ambient p-6 transition-transform duration-200 ease-out-strong hover:-translate-y-0.5 active:scale-[0.99]" style={{ animationDelay: `${i * 40}ms` }}>
+            <div key={order.id} className="bg-surface-container-lowest rounded-xl shadow-ambient p-6 transition-transform duration-200 ease-out-strong hover:-translate-y-0.5 active:scale-[0.99] animate-fade-up" style={{ animationDelay: `${i * 40}ms` }}>
               <div className="flex justify-between items-start mb-4">
                 <div>
                   <h3 className="font-headline-md text-on-surface">{order.customer_name}</h3>

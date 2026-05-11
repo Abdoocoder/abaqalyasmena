@@ -36,8 +36,25 @@ const CategoryPage = () => {
   if (loading) {
     return (
       <PageTransition>
-        <main className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-stack-lg min-h-[60vh] flex items-center justify-center">
-          <p className="text-on-surface-variant">جاري التحميل...</p>
+        <main className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-stack-lg min-h-[60vh]">
+          <header className="mb-stack-lg">
+            <div className="animate-fade-in bg-surface-container rounded-xl h-4 w-48 skeleton-shimmer animate-shimmer mb-4" />
+            <div className="animate-fade-in bg-surface-container rounded-xl h-10 w-72 skeleton-shimmer animate-shimmer" style={{ animationDelay: '40ms' }} />
+          </header>
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-gutter">
+            {[1,2,3,4,5,6].map(i => (
+              <div key={i} className="animate-fade-in bg-surface-container-lowest rounded-xl shadow-ambient overflow-hidden" style={{ animationDelay: `${i * 40}ms` }}>
+                <div className="aspect-[3/4] bg-surface-container animate-pulse relative">
+                  <div className="absolute inset-0 skeleton-shimmer animate-shimmer" />
+                </div>
+                <div className="p-4 space-y-2">
+                  <div className="bg-surface-container rounded-xl h-4 w-1/3 skeleton-shimmer animate-shimmer" />
+                  <div className="bg-surface-container rounded-xl h-5 w-3/4 skeleton-shimmer animate-shimmer" />
+                  <div className="bg-surface-container rounded-xl h-4 w-1/2 skeleton-shimmer animate-shimmer" />
+                </div>
+              </div>
+            ))}
+          </div>
         </main>
       </PageTransition>
     );
@@ -86,8 +103,8 @@ const CategoryPage = () => {
         </header>
 
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-gutter items-start">
-          <aside className="col-span-1 bg-surface-container-lowest dark:bg-surface-container-lowest-dark rounded-xl p-6 shadow-sm border border-primary/10 hidden lg:flex flex-col gap-stack-lg sticky top-[100px]">
-            <h2 className="font-headline-md text-[18px] font-semibold text-on-surface border-b border-primary/10 pb-4">تصفية</h2>
+          <aside className="col-span-1 bg-surface-container-lowest dark:bg-surface-container-lowest-dark rounded-xl p-6 shadow-ambient hidden lg:flex flex-col gap-stack-lg sticky top-[100px]">
+            <h2 className="font-headline-md text-lg font-semibold text-on-surface border-b border-surface-variant pb-4">تصفية</h2>
             <div className="flex flex-col gap-3">
               <h3 className="font-label-caps text-label-caps text-secondary">الماركة</h3>
                 <div className="flex flex-col gap-2">
@@ -108,9 +125,9 @@ const CategoryPage = () => {
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-gutter">
                 {products.map((product, i) => (
-                  <motion.div
-                    key={product.id}
-                    className="bg-surface-container-lowest dark:bg-surface-container-lowest-dark rounded-xl overflow-hidden shadow-sm transition-transform duration-200 ease-out-strong hover:-translate-y-1 hover:shadow-md border border-primary/10 flex flex-col"
+<motion.div
+                      key={product.id}
+                      className="bg-surface-container-lowest dark:bg-surface-container-lowest-dark rounded-xl overflow-hidden shadow-ambient transition-transform duration-200 ease-out-strong hover:-translate-y-1 hover:shadow-ambient-hover flex flex-col"
                     variants={springCard}
                     initial="hidden"
                     whileInView="visible"

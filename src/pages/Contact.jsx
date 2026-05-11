@@ -24,7 +24,7 @@ const Contact = () => {
         <Reveal>
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-gutter items-stretch">
           <div className="lg:col-span-3 flex flex-col gap-stack-md">
-            <div className="bg-surface-container-lowest dark:bg-surface-container-lowest-dark rounded-xl p-8 shadow-ambient flex flex-col gap-6 border border-primary/10">
+            <div className="bg-surface-container-lowest dark:bg-surface-container-lowest-dark rounded-xl p-8 shadow-ambient flex flex-col gap-6">
               {contact && (
                 <>
                   <div className="flex items-start gap-4">

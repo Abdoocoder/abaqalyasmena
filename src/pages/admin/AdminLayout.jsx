@@ -26,7 +26,7 @@ const AdminLayout = ({ children }) => {
           <p className="text-white/60 text-sm mt-1">مكتبة عبق الياسمينة</p>
         </div>
         <nav className="p-4 flex flex-col gap-1">
-          {navItems.map((item) => {
+          {navItems.map((item, idx) => {
             const Icon = item.icon
             const isActive = location.pathname === item.path
             return (
@@ -34,11 +34,12 @@ const AdminLayout = ({ children }) => {
                 key={item.path}
                 to={item.path}
                 onClick={() => setSidebarOpen(false)}
-                className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-160 ease-out-strong ${
+                className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-160 ease-out-strong animate-fade-up ${
                   isActive
                     ? 'bg-white/20 text-white'
                     : 'text-white/70 hover:bg-white/10 hover:text-white active:scale-[0.97]'
                 }`}
+                style={{ animationDelay: `${idx * 40}ms` }}
               >
                 <Icon size={20} strokeWidth={1.5} />
                 <span className="font-body-sm text-body-sm">{item.label}</span>

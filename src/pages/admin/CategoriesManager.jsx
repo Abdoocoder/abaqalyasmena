@@ -55,9 +55,9 @@ const CategoriesManager = () => {
 
   return (
     <div>
-      <h1 className="text-display-lg font-display-lg text-on-surface mb-6">إدارة التصنيفات</h1>
+      <h1 className="text-display-lg font-display-lg text-on-surface mb-6 animate-fade-down">إدارة التصنيفات</h1>
 
-      <form onSubmit={handleSubmit} className="bg-surface-container-lowest rounded-xl shadow-ambient p-6 mb-6">
+      <form onSubmit={handleSubmit} className="bg-surface-container-lowest rounded-xl shadow-ambient p-6 mb-6 animate-fade-up">
         <h2 className="text-headline-md font-headline-md text-on-surface mb-4">{editing ? 'تعديل تصنيف' : 'إضافة تصنيف جديد'}</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
           <input placeholder="الاسم (إنجليزي)" value={form.name} onChange={e => setForm(f => ({ ...f, name: e.target.value }))}
@@ -98,7 +98,7 @@ const CategoriesManager = () => {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {categories.map((cat, i) => (
-            <div key={cat.id} className="bg-surface-container-lowest rounded-xl shadow-ambient p-4 transition-transform duration-200 ease-out-strong hover:-translate-y-1 hover:shadow-ambient-hover" style={{ animationDelay: `${i * 50}ms` }}>
+            <div key={cat.id} className="bg-surface-container-lowest rounded-xl shadow-ambient p-4 transition-transform duration-200 ease-out-strong hover:-translate-y-1 hover:shadow-ambient-hover animate-scale-in" style={{ animationDelay: `${i * 50}ms` }}>
               {cat.image_url && <img src={cat.image_url} alt={cat.name_ar} className="w-full h-32 object-cover rounded-lg mb-3 transition-transform duration-160 ease-out-strong hover:scale-[1.02]" />}
               <h3 className="font-headline-md text-on-surface mb-1">{cat.name_ar}</h3>
               <p className="font-body-sm text-body-sm text-on-surface-variant mb-1">{cat.name}</p>

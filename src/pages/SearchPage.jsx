@@ -54,7 +54,19 @@ const SearchPage = () => {
         </header>
 
         {loading ? (
-          <p className="text-on-surface-variant">جاري البحث...</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-gutter">
+            {[1,2,3,4,5,6,7,8].map(i => (
+              <div key={i} className="animate-fade-in bg-surface-container-lowest rounded-xl shadow-ambient overflow-hidden" style={{ animationDelay: `${i * 30}ms` }}>
+                <div className="aspect-[3/4] bg-surface-container animate-pulse relative">
+                  <div className="absolute inset-0 skeleton-shimmer animate-shimmer" />
+                </div>
+                <div className="p-4 space-y-2">
+                  <div className="bg-surface-container rounded-xl h-4 w-1/3 skeleton-shimmer animate-shimmer" />
+                  <div className="bg-surface-container rounded-xl h-5 w-3/4 skeleton-shimmer animate-shimmer" />
+                </div>
+              </div>
+            ))}
+          </div>
         ) : (
           <>
             {categories.length > 0 && (
@@ -100,7 +112,7 @@ const SearchPage = () => {
                   {products.map((product, i) => (
                     <motion.div
                       key={product.id}
-                      className="bg-surface-container-lowest dark:bg-surface-container-lowest-dark rounded-xl overflow-hidden shadow-sm transition-transform duration-200 ease-out-strong hover:-translate-y-1 hover:shadow-md border border-primary/10 flex flex-col"
+                      className="bg-surface-container-lowest dark:bg-surface-container-lowest-dark rounded-xl overflow-hidden shadow-ambient transition-transform duration-200 ease-out-strong hover:-translate-y-1 hover:shadow-ambient-hover flex flex-col"
                       variants={springCard}
                       initial="hidden"
                       whileInView="visible"

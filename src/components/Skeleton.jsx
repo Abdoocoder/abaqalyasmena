@@ -1,16 +1,18 @@
 const Skeleton = ({ className = '' }) => (
-  <div className={`animate-pulse rounded-xl bg-surface-container ${className}`} />
+  <div className={`animate-pulse rounded-xl bg-surface-container relative overflow-hidden ${className}`}>
+    <div className="absolute inset-0 skeleton-shimmer animate-shimmer" />
+  </div>
 )
 
 export const StatCardSkeleton = () => (
-  <div className="bg-surface-container-lowest rounded-xl shadow-ambient p-6 border border-primary/10">
+  <div className="bg-surface-container-lowest rounded-xl shadow-ambient p-6">
     <Skeleton className="h-4 w-1/2 mb-3" />
     <Skeleton className="h-9 w-1/3" />
   </div>
 )
 
 export const CardSkeleton = () => (
-  <div className="bg-surface-container-lowest rounded-xl shadow-ambient p-4 border border-primary/10">
+  <div className="bg-surface-container-lowest rounded-xl shadow-ambient p-4">
     <Skeleton className="h-32 w-full mb-3" />
     <Skeleton className="h-5 w-3/4 mb-2" />
     <Skeleton className="h-4 w-1/2 mb-1" />
@@ -21,7 +23,7 @@ export const CardSkeleton = () => (
 export const RowSkeleton = ({ count = 4 }) => (
   <>
     {Array.from({ length: count }).map((_, i) => (
-      <div key={i} className="flex items-center gap-4 p-4 border-b border-surface-variant last:border-0">
+      <div key={i} className="flex items-center gap-4 p-4 border-b border-surface-variant last:border-0 animate-fade-in" style={{ animationDelay: `${i * 30}ms` }}>
         <Skeleton className="w-12 h-12 rounded-lg flex-shrink-0" />
         <Skeleton className="h-4 flex-1" />
         <Skeleton className="h-4 w-20" />
@@ -31,6 +33,20 @@ export const RowSkeleton = ({ count = 4 }) => (
       </div>
     ))}
   </>
+)
+
+export const CardGridSkeleton = ({ count = 4, className = '' }) => (
+  <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 ${className}`}>
+    {Array.from({ length: count }).map((_, i) => (
+      <div key={i} className="animate-fade-in bg-surface-container-lowest rounded-xl shadow-ambient overflow-hidden" style={{ animationDelay: `${i * 40}ms` }}>
+        <Skeleton className="h-32 w-full rounded-none" />
+        <div className="p-4 space-y-2">
+          <Skeleton className="h-5 w-3/4" />
+          <Skeleton className="h-4 w-1/2" />
+        </div>
+      </div>
+    ))}
+  </div>
 )
 
 export default Skeleton
