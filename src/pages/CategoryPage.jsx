@@ -30,7 +30,7 @@ const CategoryPage = () => {
     ]).then(([cat, prods]) => {
       setCategory(cat);
       setProducts(prods);
-    }).catch(() => {}).finally(() => setLoading(false));
+    }).catch(() => console.warn('CategoryPage: failed to load')).finally(() => setLoading(false));
   }, [id]);
 
   if (loading) {

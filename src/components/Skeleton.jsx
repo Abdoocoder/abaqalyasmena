@@ -35,18 +35,4 @@ export const RowSkeleton = ({ count = 4 }) => (
   </>
 )
 
-export const CardGridSkeleton = ({ count = 4, className = '' }) => (
-  <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 ${className}`}>
-    {Array.from({ length: count }).map((_, i) => (
-      <div key={i} className="animate-fade-in bg-surface-container-lowest rounded-xl shadow-ambient overflow-hidden" style={{ animationDelay: `${i * 40}ms` }}>
-        <Skeleton className="h-32 w-full rounded-none" />
-        <div className="p-4 space-y-2">
-          <Skeleton className="h-5 w-3/4" />
-          <Skeleton className="h-4 w-1/2" />
-        </div>
-      </div>
-    ))}
-  </div>
-)
-
 export default Skeleton

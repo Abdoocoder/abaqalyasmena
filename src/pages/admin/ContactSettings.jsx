@@ -26,7 +26,7 @@ const ContactSettings = () => {
         facebook: data.facebook || '',
         maps_query: data.maps_query || '',
       })
-    }).catch(() => {}).finally(() => setLoading(false))
+    }).catch(() => console.warn('ContactSettings: failed to load contact')).finally(() => setLoading(false))
   }, [])
 
   const handleSubmit = async (e) => {

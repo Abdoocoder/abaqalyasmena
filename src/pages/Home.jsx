@@ -33,8 +33,8 @@ const Home = () => {
   const [contact, setContact] = useState(null);
 
   useEffect(() => {
-    api.getCategories().then(setCategories).catch(() => {});
-    api.getContact().then(setContact).catch(() => {});
+    api.getCategories().then(setCategories).catch(() => console.warn('Home: failed to load categories'));
+    api.getContact().then(setContact).catch(() => console.warn('Home: failed to load contact'));
   }, []);
 
   return (

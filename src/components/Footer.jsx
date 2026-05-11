@@ -17,7 +17,7 @@ const Footer = () => {
   const [contact, setContact] = useState(null);
 
   useEffect(() => {
-    api.getContact().then(setContact).catch(() => {});
+    api.getContact().then(setContact).catch(() => console.warn('Footer: failed to load contact'));
   }, []);
 
   return (

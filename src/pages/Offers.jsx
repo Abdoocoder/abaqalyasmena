@@ -18,7 +18,7 @@ const Offers = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    api.getOffers().then(setOffers).catch(() => {}).finally(() => setLoading(false));
+    api.getOffers().then(setOffers).catch(() => console.warn('Offers: failed to load')).finally(() => setLoading(false));
   }, []);
 
   return (

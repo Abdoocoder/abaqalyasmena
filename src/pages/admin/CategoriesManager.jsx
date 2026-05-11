@@ -14,7 +14,7 @@ const CategoriesManager = () => {
 
   const fetchData = () => {
     setLoading(true)
-    api.getCategories().then(setCategories).catch(() => {}).finally(() => setLoading(false))
+    api.getCategories().then(setCategories).catch(() => console.warn('CategoriesManager: failed to load')).finally(() => setLoading(false))
   }
 
   useEffect(() => { fetchData() }, [])
@@ -69,7 +69,7 @@ const CategoriesManager = () => {
           <div className="flex gap-2 items-center">
             <input type="file" accept="image/*" onChange={handleImageUpload}
               className="text-body-sm text-on-surface-variant file:mr-2 file:py-2 file:px-4 file:rounded-xl file:border-0 file:bg-primary/10 file:text-primary file:font-body-sm file:text-body-sm file:transition-all duration-160 file:active:scale-[0.97] cursor-pointer" />
-            {form.image_url && <img src={form.image_url} className="w-12 h-12 object-cover rounded-lg" alt="" />}
+            {form.image_url && <img src={form.image_url} className="w-12 h-12 object-cover rounded-lg" alt="صورة مصغرة للتصنيف" />}
           </div>
         </div>
         <div className="flex gap-2">

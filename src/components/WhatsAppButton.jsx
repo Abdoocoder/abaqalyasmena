@@ -8,7 +8,7 @@ const WhatsAppButton = ({ productName, variant = 'primary', className = '' }) =>
     fetch('/api/contact')
       .then(r => r.json())
       .then(data => setWhatsapp(data.whatsapp || ''))
-      .catch(() => {});
+      .catch(() => console.warn('WhatsAppButton: failed to load contact'));
   }, []);
 
   const message = productName

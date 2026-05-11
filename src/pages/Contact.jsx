@@ -10,7 +10,7 @@ const Contact = () => {
   const [contact, setContact] = useState(null);
 
   useEffect(() => {
-    api.getContact().then(setContact).catch(() => {});
+    api.getContact().then(setContact).catch(() => console.warn('ContactPage: failed to load contact'));
   }, []);
 
   return (

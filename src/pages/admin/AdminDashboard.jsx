@@ -85,7 +85,7 @@ const AdminDashboard = () => {
         offers: offers.length,
         orders: orders.length,
       })
-    }).catch(() => {}).finally(() => setLoading(false))
+    }).catch(() => console.warn('AdminDashboard: failed to load stats')).finally(() => setLoading(false))
   }, [])
 
   return (

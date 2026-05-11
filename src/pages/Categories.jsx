@@ -10,7 +10,7 @@ const Categories = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    api.getCategories().then(setCategories).catch(() => {}).finally(() => setLoading(false));
+    api.getCategories().then(setCategories).catch(() => console.warn('Categories: failed to load')).finally(() => setLoading(false));
   }, []);
 
   return (

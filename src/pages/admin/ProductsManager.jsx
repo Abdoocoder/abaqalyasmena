@@ -18,7 +18,7 @@ const ProductsManager = () => {
     Promise.all([api.getProducts(), api.getCategories()]).then(([p, c]) => {
       setProducts(p)
       setCategories(c)
-    }).catch(() => {}).finally(() => setLoading(false))
+    }).catch(() => console.warn('ProductsManager: failed to load')).finally(() => setLoading(false))
   }
 
   useEffect(() => { fetchData() }, [])
@@ -127,7 +127,7 @@ const ProductsManager = () => {
                 <tr key={p.id} className="border-t border-surface-variant hover:bg-surface-container-low/50 transition-colors duration-160 animate-fade-in" style={{ animationDelay: `${i * 30}ms` }}>
                   <td className="p-4">
                     {p.image_url
-                      ? <img src={p.image_url} className="w-12 h-12 object-cover rounded-lg transition-transform duration-160 ease-out-strong hover:scale-110" alt="" />
+                      ? <img src={p.image_url} className="w-12 h-12 object-cover rounded-lg transition-transform duration-160 ease-out-strong hover:scale-110" alt="صورة مصغرة للمنتج" />
                       : <div className="w-12 h-12 bg-surface-container rounded-lg" />}
                   </td>
                   <td className="p-4 font-body-sm text-body-sm text-on-surface">{p.name_ar}</td>

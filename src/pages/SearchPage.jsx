@@ -36,7 +36,7 @@ const SearchPage = () => {
       setCategories(cats.filter(c =>
         c.name_ar.includes(query) || c.name.toLowerCase().includes(query)
       ));
-    }).catch(() => {}).finally(() => setLoading(false));
+    }).catch(() => console.warn('SearchPage: failed to load data')).finally(() => setLoading(false));
   }, [q]);
 
   return (

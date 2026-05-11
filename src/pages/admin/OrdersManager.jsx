@@ -8,7 +8,7 @@ const OrdersManager = () => {
 
   const fetchData = () => {
     setLoading(true)
-    api.getOrders().then(setOrders).catch(() => {}).finally(() => setLoading(false))
+    api.getOrders().then(setOrders).catch(() => console.warn('OrdersManager: failed to load')).finally(() => setLoading(false))
   }
 
   useEffect(() => { fetchData() }, [])
