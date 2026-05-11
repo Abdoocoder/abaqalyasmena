@@ -1,5 +1,5 @@
-import React from 'react';
 import { CONTACT_INFO } from '../constants/data';
+import Icon from './Icon';
 
 const WhatsAppButton = ({ productName, variant = 'primary', className = '' }) => {
   const message = productName 
@@ -8,12 +8,12 @@ const WhatsAppButton = ({ productName, variant = 'primary', className = '' }) =>
   
   const link = `https://wa.me/${CONTACT_INFO.whatsapp}?text=${message}`;
 
-  const baseStyles = "font-label-caps text-label-caps px-6 py-3 rounded-xl shadow-ambient shadow-ambient-hover transition-all duration-300 flex items-center space-x-reverse space-x-2";
+  const baseStyles = "font-label-caps text-label-caps px-6 py-3 rounded-xl shadow-ambient flex items-center space-x-reverse space-x-2 transition-transform duration-160 ease-out-strong";
   
   const variants = {
-    primary: "bg-primary text-on-primary",
-    secondary: "bg-secondary-container text-primary",
-    outline: "bg-surface border border-primary text-primary hover:bg-primary/5"
+    primary: "bg-whatsapp text-white active:scale-[0.97]",
+    secondary: "bg-secondary-container text-on-secondary-container active:scale-[0.97]",
+    outline: "bg-white border border-whatsapp text-whatsapp hover:bg-whatsapp/5 active:scale-[0.97]"
   };
 
   return (
@@ -23,8 +23,8 @@ const WhatsAppButton = ({ productName, variant = 'primary', className = '' }) =>
       rel="noopener noreferrer" 
       className={`${baseStyles} ${variants[variant]} ${className}`}
     >
-      <span className="material-symbols-outlined text-[18px]">chat</span>
-      <span>{productName ? "Order on WhatsApp" : "Contact on WhatsApp"}</span>
+      <Icon name="chat" className="w-[18px] h-[18px]" />
+      <span>{productName ? "اطلب عبر واتساب" : "تواصل عبر واتساب"}</span>
     </a>
   );
 };
