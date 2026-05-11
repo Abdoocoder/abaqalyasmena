@@ -18,12 +18,12 @@ const Contact = () => {
       <main className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-stack-lg">
         <header className="mb-stack-lg">
           <h1 className="animate-fade-up text-display-lg font-display-lg text-on-surface mb-stack-sm">اتصل بنا</h1>
-          <p className="animate-fade-up max-w-readable text-body-base text-on-surface-variant" style={{ animationDelay: '80ms' }}>زورنا في شارع جاوا أو تواصل معنا أونلاين</p>
+          <p className="animate-fade-up max-w-readable text-body-base text-on-surface-variant" style={{ animationDelay: '80ms' }}>زورنا في شارع قوس قزح ١٢ أو تواصل معنا أونلاين</p>
         </header>
 
-        <Reveal>
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-gutter items-stretch">
           <div className="lg:col-span-3 flex flex-col gap-stack-md">
+            <Reveal>
             <div className="bg-surface-container-lowest dark:bg-surface-container-lowest-dark rounded-xl p-8 shadow-ambient flex flex-col gap-6">
               {contact && (
                 <>
@@ -41,8 +41,8 @@ const Contact = () => {
                       <Icon name="phone" className="w-6 h-6" />
                     </div>
                     <div>
-                      <h3 className="font-headline-md text-on-surface mb-1">رقم الهاتف</h3>
-                      <p className="text-on-surface-variant">{contact.phone}</p>
+                      <h3 className="font-headline-md text-on-surface mb-1">اتصال مباشر</h3>
+                      <p className="text-on-surface-variant" dir="ltr">{contact.phone}</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-4">
@@ -78,6 +78,7 @@ const Contact = () => {
                 )}
               </div>
             </div>
+            </Reveal>
           </div>
 
           <div className="lg:col-span-2 rounded-xl overflow-hidden shadow-ambient min-h-[400px] relative">
@@ -103,7 +104,6 @@ const Contact = () => {
             </div>
           </div>
         </div>
-        </Reveal>
       </main>
     </PageTransition>
   );

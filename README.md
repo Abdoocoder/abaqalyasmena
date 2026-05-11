@@ -1,6 +1,6 @@
 # مكتبة عبق الياسمينة | Abaq Al Yasmina Stationery
 
-Premium RTL Arabic stationery storefront for a physical store on Java Street, Amman, Jordan.
+Premium RTL Arabic stationery storefront for a physical store on Rainbow Street (شارع قوس قزح), Amman, Jordan.
 
 Built as a curated digital showcase — not a typical e-commerce template. Helps local customers browse products, discover categories, and initiate contact via phone or WhatsApp.
 
@@ -109,6 +109,6 @@ src/
 
 ## Contact
 
-- **Store**: Java Street, Amman, Jordan
+- **Store**: Rainbow Street 12 (شارع قوس قزح ١٢), Amman, Jordan
 - **WhatsApp**: [+962 7 9193 1789](https://wa.me/962791931789)
 - **Facebook**: [Abaq Al Yasmina](https://web.facebook.com/abaqalyasmena)

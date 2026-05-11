@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { api } from '../services/api';
 import logo from '../assets/logo.png';
 
 const floatAnimation = {
@@ -16,10 +17,7 @@ const Footer = () => {
   const [contact, setContact] = useState(null);
 
   useEffect(() => {
-    fetch('/api/contact')
-      .then(r => r.json())
-      .then(setContact)
-      .catch(() => {});
+    api.getContact().then(setContact).catch(() => {});
   }, []);
 
   return (

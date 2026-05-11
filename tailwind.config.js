@@ -98,11 +98,18 @@ export default {
         "body-base": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }]
       },
       "transitionDuration": {
-        "160": "160ms"
+        "160": "160ms",
+        "400": "400ms",
+        "500": "500ms"
       },
       "transitionTimingFunction": {
         "ease-out-strong": "cubic-bezier(0.23, 1, 0.32, 1)",
         "ease-in-out-strong": "cubic-bezier(0.77, 0, 0.175, 1)"
+      },
+      "boxShadow": {
+        "ambient": "0 2px 12px rgba(44, 0, 62, 0.06), 0 4px 20px rgba(232, 76, 163, 0.06)",
+        "ambient-hover": "0 4px 16px rgba(44, 0, 62, 0.08), 0 8px 30px rgba(232, 76, 163, 0.1)",
+        "card": "0 1px 4px rgba(44, 0, 62, 0.04), 0 2px 12px rgba(232, 76, 163, 0.04)"
       },
       "keyframes": {
         "fade-up": {

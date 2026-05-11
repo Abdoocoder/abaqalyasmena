@@ -30,7 +30,7 @@ const ProtectedRoute = ({ children }) => {
   if (ADMIN_EMAILS.length > 0 && userEmail && !ADMIN_EMAILS.includes(userEmail)) {
     return <Navigate to="/" replace />
   }
-  return <><TokenSync />{children}</>
+  return <TokenSync><>{children}</></TokenSync>
 }
 
 function App() {
