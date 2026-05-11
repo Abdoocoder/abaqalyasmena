@@ -5,7 +5,9 @@ import { fileURLToPath } from 'url';
 import { dirname, resolve } from 'path';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-dotenv.config({ path: resolve(__dirname, '.env') });
+if (process.env.NODE_ENV !== 'production') {
+  dotenv.config({ path: resolve(__dirname, '.env') });
+}
 
 import categoriesRouter from './routes/categories.js';
 import productsRouter from './routes/products.js';
