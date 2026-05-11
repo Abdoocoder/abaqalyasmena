@@ -30,3 +30,6 @@ yarn-error.log*
 *.sln
 *.sw?
 .aider*
+
+# design artifacts (may contain embedded secrets from export tools)
+*.zip
