@@ -1,16 +1,22 @@
-import Navbar from './Navbar';
-import Footer from './Footer';
+import Navbar from './Navbar'
+import Footer from './Footer'
 
 const Layout = ({ children }) => {
   return (
     <div className="min-h-screen flex flex-col">
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[60] focus:px-4 focus:py-3 focus:bg-tertiary focus:text-on-tertiary focus:rounded-xl focus:shadow-ambient focus:outline-none focus:text-body-base focus:font-body-base"
+      >
+        تخطى إلى المحتوى الرئيسي
+      </a>
       <Navbar />
-      <div className="flex-grow">
+      <div id="main-content" className="flex-grow outline-none" tabIndex={-1}>
         {children}
       </div>
       <Footer />
     </div>
-  );
-};
+  )
+}
 
-export default Layout;
+export default Layout

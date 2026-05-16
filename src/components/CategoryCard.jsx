@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import Icon from './Icon'
 
-const CategoryCard = ({ category, index = 0, className = '' }) => {
+const CategoryCard = ({ category, className = '' }) => {
   return (
     <Link
       to={`/category/${category.id}`}
@@ -14,13 +14,16 @@ const CategoryCard = ({ category, index = 0, className = '' }) => {
             loading="lazy"
             className="w-full h-full object-cover opacity-85 transition-transform duration-500 ease-out-strong group-hover:scale-105"
             alt={category.name_ar}
+            onError={(e) => {
+              e.target.style.display = 'none'
+            }}
           />
         )}
       </div>
       <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-inverse-surface/90 to-transparent flex items-end justify-between">
         <div>
           {category.tagline && (
-            <span className="text-label-caps font-label-caps text-primary-fixed tracking-wider mb-1 block uppercase pulse-soft">
+            <span className="text-label-caps font-label-caps text-primary-fixed tracking-wider mb-1 block uppercase">
               {category.tagline}
             </span>
           )}

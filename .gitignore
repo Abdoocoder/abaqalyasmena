@@ -34,3 +34,11 @@ yarn-error.log*
 
 # design artifacts (may contain embedded secrets from export tools)
 *.zip
+
+# AI agent tooling
+.agents/
+skills-lock.json
+
+# auto-generated / utility
+docs/
+scripts/

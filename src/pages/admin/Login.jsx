@@ -19,11 +19,7 @@ const Login = () => {
           <p className="text-body-base text-on-surface-variant">لوحة تحكم مكتبة عبق الياسمينة</p>
         </div>
         <div className="animate-fade-up" style={{ animationDelay: '100ms' }}>
-          <SignIn
-            routing="virtual"
-            afterSignInUrl="/admin"
-            signUpUrl="/admin/login"
-          />
+          <SignIn routing="virtual" afterSignInUrl="/admin" signUpUrl="/admin/login" />
         </div>
       </div>
     </div>

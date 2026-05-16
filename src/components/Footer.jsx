@@ -1,24 +1,16 @@
-import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { api } from '../services/api';
-import logo from '../assets/logo.png';
-
-const floatAnimation = {
-  y: [0, -6, 0],
-  transition: { duration: 4, repeat: Infinity, ease: 'easeInOut' },
-};
+import { Link } from 'react-router-dom'
+import { motion } from 'framer-motion'
+import logo from '../assets/logo.png'
+import { useContact } from '../contexts/ContactContext'
 
 const springHover = {
-  type: 'spring', stiffness: 200, damping: 12,
-};
+  type: 'spring',
+  stiffness: 100,
+  damping: 20,
+}
 
 const Footer = () => {
-  const [contact, setContact] = useState(null);
-
-  useEffect(() => {
-    api.getContact().then(setContact).catch(() => console.warn('Footer: failed to load contact'));
-  }, []);
+  const contact = useContact()
 
   return (
     <footer className="bg-surface-container-low dark:bg-inverse-surface mt-auto">
@@ -35,7 +27,6 @@ const Footer = () => {
               src={logo}
               alt="مكتبة عبق الياسمينة"
               className="h-14 w-auto"
-              animate={floatAnimation}
               whileHover={{ scale: 1.05 }}
               transition={springHover}
             />
@@ -102,17 +93,25 @@ const Footer = () => {
         </motion.div>
 
         <motion.div
-          className="col-span-1 md:col-span-3 mt-stack-md pt-stack-sm border-t border-surface-variant font-body-sm text-body-sm text-on-secondary-container dark:text-secondary-fixed-dim text-center"
+          className="col-span-1 md:col-span-3 mt-stack-md pt-stack-sm border-t border-surface-variant font-body-sm text-body-sm text-on-secondary-container dark:text-secondary-fixed-dim flex flex-col sm:flex-row items-center justify-between gap-2"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ delay: 0.2 }}
         >
-          © {new Date().getFullYear()} مكتبة عبق الياسمينة. جميع الحقوق محفوظة
+          <span>© {new Date().getFullYear()} مكتبة عبق الياسمينة. جميع الحقوق محفوظة</span>
+          <a
+            href="https://www.abdoocoder.dev/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="opacity-70 hover:opacity-100 hover:text-primary dark:hover:text-primary transition-all duration-200 whitespace-nowrap"
+          >
+            تصميم وتطوير بواسطة <span className="font-semibold">Abdoo Coder</span>
+          </a>
         </motion.div>
       </div>
     </footer>
-  );
-};
+  )
+}
 
-export default Footer;
+export default Footer

@@ -1,8 +1,26 @@
 import {
-  Search, Moon, Sun, Menu, X, MapPin, Clock, Headphones, Phone,
-  ArrowLeft, ChevronLeft, FolderX, Package, Heart, MessageCircle,
-  Map, Home, SearchX, ArrowRight, ExternalLink, CircleAlert,
-} from 'lucide-react';
+  Search,
+  Moon,
+  Sun,
+  Menu,
+  X,
+  MapPin,
+  Clock,
+  Headphones,
+  Phone,
+  ArrowLeft,
+  ChevronLeft,
+  FolderX,
+  Package,
+  Heart,
+  MessageCircle,
+  Map,
+  Home,
+  SearchX,
+  ArrowRight,
+  ExternalLink,
+  CircleAlert,
+} from 'lucide-react'
 
 const iconMap = {
   search: Search,
@@ -27,12 +45,12 @@ const iconMap = {
   arrow_right_alt: ArrowRight,
   facebook: ExternalLink,
   error: CircleAlert,
-};
+}
 
 const Icon = ({ name, className = '' }) => {
-  const LucideIcon = iconMap[name];
-  if (!LucideIcon) return null;
-  return <LucideIcon className={className} />;
-};
+  const LucideIcon = iconMap[name]
+  if (!LucideIcon) return null
+  return <LucideIcon className={className} />
+}
 
-export default Icon;
+export default Icon

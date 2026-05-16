@@ -1,5 +1,7 @@
 const Skeleton = ({ className = '' }) => (
-  <div className={`animate-pulse rounded-xl bg-surface-container relative overflow-hidden ${className}`}>
+  <div
+    className={`animate-pulse rounded-xl bg-surface-container relative overflow-hidden ${className}`}
+  >
     <div className="absolute inset-0 skeleton-shimmer animate-shimmer" />
   </div>
 )
@@ -23,7 +25,11 @@ export const CardSkeleton = () => (
 export const RowSkeleton = ({ count = 4 }) => (
   <>
     {Array.from({ length: count }).map((_, i) => (
-      <div key={i} className="flex items-center gap-4 p-4 border-b border-surface-variant last:border-0 animate-fade-in" style={{ animationDelay: `${i * 30}ms` }}>
+      <div
+        key={i}
+        className="flex items-center gap-4 p-4 border-b border-surface-variant last:border-0 animate-fade-in"
+        style={{ animationDelay: `${i * 30}ms` }}
+      >
         <Skeleton className="w-12 h-12 rounded-lg flex-shrink-0" />
         <Skeleton className="h-4 flex-1" />
         <Skeleton className="h-4 w-20" />

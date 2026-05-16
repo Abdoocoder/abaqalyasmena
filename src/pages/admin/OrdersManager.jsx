@@ -7,21 +7,32 @@ const OrdersManager = () => {
   const [loading, setLoading] = useState(true)
 
   const fetchData = () => {
-    setLoading(true)
-    api.getOrders().then(setOrders).catch(() => console.warn('OrdersManager: failed to load')).finally(() => setLoading(false))
+    api
+      .getOrders()
+      .then(setOrders)
+      .catch(() => console.warn('OrdersManager: failed to load'))
+      .finally(() => setLoading(false))
   }
 
-  useEffect(() => { fetchData() }, [])
+  useEffect(() => {
+    fetchData()
+  }, [])
 
   const handleDelete = async (id) => {
     if (!confirm('تأكيد حذف هذا الطلب؟')) return
-    try { await api.deleteOrder(id); fetchData() }
-    catch (err) { alert(err.message) }
+    try {
+      await api.deleteOrder(id)
+      fetchData()
+    } catch (err) {
+      alert(err.message)
+    }
   }
 
   return (
     <div>
-      <h1 className="text-display-lg font-display-lg text-on-surface mb-6 animate-fade-down">إدارة الطلبات</h1>
+      <h1 className="text-display-lg font-display-lg text-on-surface mb-6 animate-fade-down">
+        إدارة الطلبات
+      </h1>
 
       {loading ? (
         <div className="flex flex-col gap-4">
@@ -36,7 +47,11 @@ const OrdersManager = () => {
       ) : (
         <div className="flex flex-col gap-4">
           {orders.map((order, i) => (
-            <div key={order.id} className="bg-surface-container-lowest rounded-xl shadow-ambient p-6 transition-transform duration-200 ease-out-strong hover:-translate-y-0.5 active:scale-[0.99] animate-fade-up" style={{ animationDelay: `${i * 40}ms` }}>
+            <div
+              key={order.id}
+              className="bg-surface-container-lowest rounded-xl shadow-ambient p-6 transition-transform duration-200 ease-out-strong hover:-translate-y-0.5 active:scale-[0.99] animate-fade-up"
+              style={{ animationDelay: `${i * 40}ms` }}
+            >
               <div className="flex justify-between items-start mb-4">
                 <div>
                   <h3 className="font-headline-md text-on-surface">{order.customer_name}</h3>
@@ -44,7 +59,13 @@ const OrdersManager = () => {
                 </div>
                 <div className="text-left">
                   <p className="font-body-sm text-body-sm text-on-surface-variant">
-                    {new Date(order.created_at).toLocaleDateString('ar-JO', { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}
+                    {new Date(order.created_at).toLocaleDateString('ar-JO', {
+                      year: 'numeric',
+                      month: 'short',
+                      day: 'numeric',
+                      hour: '2-digit',
+                      minute: '2-digit',
+                    })}
                   </p>
                 </div>
               </div>
@@ -55,9 +76,14 @@ const OrdersManager = () => {
               )}
               {order.items && Array.isArray(order.items) && order.items.length > 0 && (
                 <div className="bg-surface-container rounded-lg p-3 mb-4">
-                  <p className="font-label-caps text-label-caps text-on-surface-variant mb-2">المنتجات:</p>
+                  <p className="font-label-caps text-label-caps text-on-surface-variant mb-2">
+                    المنتجات:
+                  </p>
                   {order.items.map((item, i) => (
-                    <div key={i} className="font-body-sm text-body-sm text-on-surface flex justify-between py-1 border-b border-surface-variant last:border-0">
+                    <div
+                      key={i}
+                      className="font-body-sm text-body-sm text-on-surface flex justify-between py-1 border-b border-surface-variant last:border-0"
+                    >
                       <span>{item.name || item.name_ar || `منتج ${i + 1}`}</span>
                       {item.quantity && <span>الكمية: {item.quantity}</span>}
                     </div>
@@ -73,8 +99,10 @@ const OrdersManager = () => {
                 >
                   واتساب
                 </a>
-                <button onClick={() => handleDelete(order.id)}
-                  className="bg-surface-container text-on-surface font-label-caps text-label-caps px-4 py-2 rounded-xl transition-transform duration-160 ease-out-strong active:scale-[0.97]">
+                <button
+                  onClick={() => handleDelete(order.id)}
+                  className="bg-surface-container text-on-surface font-label-caps text-label-caps px-4 py-2 rounded-xl transition-transform duration-160 ease-out-strong active:scale-[0.97]"
+                >
                   حذف
                 </button>
               </div>

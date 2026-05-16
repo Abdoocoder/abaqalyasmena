@@ -1,19 +1,19 @@
-import { Component } from 'react';
-import { Link } from 'react-router-dom';
-import Icon from './Icon';
+import { Component } from 'react'
+import { Link } from 'react-router-dom'
+import Icon from './Icon'
 
 class ErrorBoundary extends Component {
   constructor(props) {
-    super(props);
-    this.state = { hasError: false, error: null };
+    super(props)
+    this.state = { hasError: false, error: null }
   }
 
   static getDerivedStateFromError(error) {
-    return { hasError: true, error };
+    return { hasError: true, error }
   }
 
   componentDidCatch(error, info) {
-    console.error('ErrorBoundary caught:', error, info);
+    console.error('ErrorBoundary caught:', error, info)
   }
 
   render() {
@@ -33,11 +33,11 @@ class ErrorBoundary extends Component {
             العودة إلى الرئيسية
           </Link>
         </main>
-      );
+      )
     }
 
-    return this.props.children;
+    return this.props.children
   }
 }
 
-export default ErrorBoundary;
+export default ErrorBoundary

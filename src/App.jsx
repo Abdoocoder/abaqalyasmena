@@ -19,18 +19,25 @@ import OffersManager from './pages/admin/OffersManager'
 import OrdersManager from './pages/admin/OrdersManager'
 import ContactSettings from './pages/admin/ContactSettings'
 
-const ADMIN_EMAILS = (import.meta.env.VITE_ADMIN_EMAILS || '').split(',').map(e => e.trim()).filter(Boolean)
+const ADMIN_EMAILS = (import.meta.env.VITE_ADMIN_EMAILS || '')
+  .split(',')
+  .map((e) => e.trim())
+  .filter(Boolean)
 
 const ProtectedRoute = ({ children }) => {
   const { isSignedIn, isLoaded } = useAuth()
   const { user } = useUser()
-  if (!isLoaded) return null
+  if (!isLoaded) return <div className="min-h-screen bg-background" />
   if (!isSignedIn) return <Navigate to="/admin/login" replace />
   const userEmail = user?.primaryEmailAddress?.emailAddress
   if (ADMIN_EMAILS.length > 0 && userEmail && !ADMIN_EMAILS.includes(userEmail)) {
     return <Navigate to="/" replace />
   }
-  return <TokenSync><>{children}</></TokenSync>
+  return (
+    <TokenSync>
+      <>{children}</>
+    </TokenSync>
+  )
 }
 
 function App() {
@@ -41,12 +48,66 @@ function App() {
     return (
       <Routes>
         <Route path="/admin/login" element={<Login />} />
-        <Route path="/admin" element={<ProtectedRoute><AdminLayout><AdminDashboard /></AdminLayout></ProtectedRoute>} />
-        <Route path="/admin/products" element={<ProtectedRoute><AdminLayout><ProductsManager /></AdminLayout></ProtectedRoute>} />
-        <Route path="/admin/categories" element={<ProtectedRoute><AdminLayout><CategoriesManager /></AdminLayout></ProtectedRoute>} />
-        <Route path="/admin/offers" element={<ProtectedRoute><AdminLayout><OffersManager /></AdminLayout></ProtectedRoute>} />
-        <Route path="/admin/orders" element={<ProtectedRoute><AdminLayout><OrdersManager /></AdminLayout></ProtectedRoute>} />
-        <Route path="/admin/contact" element={<ProtectedRoute><AdminLayout><ContactSettings /></AdminLayout></ProtectedRoute>} />
+        <Route
+          path="/admin"
+          element={
+            <ProtectedRoute>
+              <AdminLayout>
+                <AdminDashboard />
+              </AdminLayout>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/products"
+          element={
+            <ProtectedRoute>
+              <AdminLayout>
+                <ProductsManager />
+              </AdminLayout>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/categories"
+          element={
+            <ProtectedRoute>
+              <AdminLayout>
+                <CategoriesManager />
+              </AdminLayout>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/offers"
+          element={
+            <ProtectedRoute>
+              <AdminLayout>
+                <OffersManager />
+              </AdminLayout>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/orders"
+          element={
+            <ProtectedRoute>
+              <AdminLayout>
+                <OrdersManager />
+              </AdminLayout>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/contact"
+          element={
+            <ProtectedRoute>
+              <AdminLayout>
+                <ContactSettings />
+              </AdminLayout>
+            </ProtectedRoute>
+          }
+        />
         <Route path="/admin/*" element={<Navigate to="/admin" replace />} />
       </Routes>
     )

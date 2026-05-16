@@ -1,8 +1,12 @@
-let _clerkToken = null
+let _tokenGetter = null
 
 export const auth = {
-  setToken: (token) => { _clerkToken = token },
-  getToken: () => _clerkToken,
-  isAuthenticated: () => !!_clerkToken,
-  logout: () => { _clerkToken = null },
+  setTokenGetter: (fn) => {
+    _tokenGetter = fn
+  },
+  getToken: () => (_tokenGetter ? _tokenGetter() : Promise.resolve(null)),
+  isAuthenticated: () => !!_tokenGetter,
+  logout: () => {
+    _tokenGetter = null
+  },
 }

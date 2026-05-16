@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react';
-import WhatsAppButton from '../components/WhatsAppButton';
-import PageTransition from '../components/PageTransition';
-import { motion } from 'framer-motion';
-import { api } from '../services/api';
+import { useState, useEffect } from 'react'
+import WhatsAppButton from '../components/WhatsAppButton'
+import PageTransition from '../components/PageTransition'
+import { motion } from 'framer-motion'
+import { api } from '../services/api'
 
 const springBundle = {
   hidden: { opacity: 0, y: 24 },
@@ -11,28 +11,43 @@ const springBundle = {
     y: 0,
     transition: { type: 'spring', stiffness: 100, damping: 20, delay: i * 0.12 },
   }),
-};
+}
 
 const Offers = () => {
-  const [offers, setOffers] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [offers, setOffers] = useState([])
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    api.getOffers().then(setOffers).catch(() => console.warn('Offers: failed to load')).finally(() => setLoading(false));
-  }, []);
+    api
+      .getOffers()
+      .then(setOffers)
+      .catch(() => console.warn('Offers: failed to load'))
+      .finally(() => setLoading(false))
+  }, [])
 
   return (
     <PageTransition>
       <main className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-stack-lg">
         <header className="mb-stack-lg">
-          <h1 className="animate-fade-up text-display-lg font-display-lg text-on-surface mb-stack-sm">عروض وحزم خاصة</h1>
-          <p className="animate-fade-up max-w-readable text-body-base text-on-surface-variant" style={{ animationDelay: '80ms' }}>حزم مكتبية مختارة للطلاب والمحترفين</p>
+          <h1 className="animate-fade-up text-display-lg font-display-lg text-on-surface mb-stack-sm">
+            عروض وحزم خاصة
+          </h1>
+          <p
+            className="animate-fade-up max-w-readable text-body-base text-on-surface-variant"
+            style={{ animationDelay: '80ms' }}
+          >
+            حزم مكتبية مختارة للطلاب والمحترفين
+          </p>
         </header>
 
         {loading ? (
           <div className="flex flex-col gap-8">
-            {[1,2].map(i => (
-              <div key={i} className="animate-fade-in bg-surface-container-lowest rounded-3xl overflow-hidden flex flex-col md:flex-row shadow-ambient" style={{ animationDelay: `${i * 80}ms` }}>
+            {[1, 2].map((i) => (
+              <div
+                key={i}
+                className="animate-fade-in bg-surface-container-lowest rounded-3xl overflow-hidden flex flex-col md:flex-row shadow-ambient"
+                style={{ animationDelay: `${i * 80}ms` }}
+              >
                 <div className="w-full md:w-2/5 h-64 md:h-auto bg-surface-container animate-pulse relative">
                   <div className="absolute inset-0 skeleton-shimmer animate-shimmer" />
                 </div>
@@ -47,7 +62,9 @@ const Offers = () => {
           </div>
         ) : offers.length === 0 ? (
           <div className="bg-surface-container-lowest rounded-xl shadow-ambient p-8 text-center">
-            <p className="text-on-surface-variant font-body-base text-body-base">لا توجد عروض حالياً</p>
+            <p className="text-on-surface-variant font-body-base text-body-base">
+              لا توجد عروض حالياً
+            </p>
           </div>
         ) : (
           <div className="flex flex-col gap-8">
@@ -62,15 +79,37 @@ const Offers = () => {
                 custom={i}
               >
                 <div className="w-full md:w-2/5 h-64 md:h-auto overflow-hidden">
-                  {bundle.image_url && <img src={bundle.image_url} loading="lazy" className="w-full h-full object-cover transition-transform duration-500 ease-out-strong hover:scale-105" alt={bundle.title_ar} />}
+                  {bundle.image_url && (
+                    <img
+                      src={bundle.image_url}
+                      loading="lazy"
+                      className="w-full h-full object-cover transition-transform duration-500 ease-out-strong hover:scale-105"
+                      alt={bundle.title_ar}
+                      onError={(e) => {
+                        e.target.style.display = 'none'
+                      }}
+                    />
+                  )}
                 </div>
                 <div className="p-8 md:p-10 flex-1 flex flex-col justify-center text-right">
-                  {bundle.tag && <span className="bg-tertiary text-on-tertiary text-label-caps font-bold px-3 py-1 rounded-full w-fit mb-4 pulse-soft">{bundle.tag}</span>}
-                  <h2 className="text-[clamp(24px,4vw,32px)] font-display-lg text-on-surface leading-tight mb-2">{bundle.title_ar}</h2>
+                  {bundle.tag && (
+                    <span className="bg-tertiary text-on-tertiary text-label-caps font-bold px-3 py-1 rounded-full w-fit mb-4">
+                      {bundle.tag}
+                    </span>
+                  )}
+                  <h2 className="text-[clamp(24px,4vw,32px)] font-display-lg text-on-surface leading-tight mb-2">
+                    {bundle.title_ar}
+                  </h2>
                   <h3 className="text-headline-md text-primary font-medium mb-4">{bundle.title}</h3>
-                  {bundle.description && <p className="max-w-readable text-body-base text-on-surface-variant mb-6">{bundle.description}</p>}
+                  {bundle.description && (
+                    <p className="max-w-readable text-body-base text-on-surface-variant mb-6">
+                      {bundle.description}
+                    </p>
+                  )}
                   <div className="flex items-center gap-6 mt-auto">
-                    {bundle.price && <div className="text-2xl font-bold text-on-surface">{bundle.price}</div>}
+                    {bundle.price && (
+                      <div className="text-2xl font-bold text-on-surface">{bundle.price}</div>
+                    )}
                     <WhatsAppButton productName={bundle.title_ar} className="px-8" />
                   </div>
                 </div>
@@ -80,7 +119,7 @@ const Offers = () => {
         )}
       </main>
     </PageTransition>
-  );
-};
+  )
+}
 
-export default Offers;
+export default Offers
