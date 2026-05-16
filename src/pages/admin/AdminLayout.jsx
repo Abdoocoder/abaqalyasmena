@@ -38,7 +38,7 @@ const AdminLayout = ({ children }) => {
     <div className="min-h-screen flex" dir="rtl">
       {/* ── Sidebar ── */}
       <aside
-        className={`bg-gradient-to-b from-surface-container-dark to-tertiary text-white w-64 flex-shrink-0 fixed h-full z-30 overflow-y-auto flex flex-col transition-transform duration-200 ease-out-strong ${sidebarOpen ? 'translate-x-0' : 'translate-x-full'} lg:translate-x-0 lg:static`}
+        className={`bg-gradient-to-b from-surface-container-dark to-tertiary text-white w-64 flex-shrink-0 fixed top-0 right-0 h-full z-30 overflow-y-auto flex flex-col transition-transform duration-200 ease-out-strong ${sidebarOpen ? 'translate-x-0' : 'translate-x-full'} lg:translate-x-0 lg:static lg:top-auto lg:right-auto`}
       >
         {/* Sidebar header */}
         <div className="p-5 border-b border-white/8">

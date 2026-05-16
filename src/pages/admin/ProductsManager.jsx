@@ -232,79 +232,118 @@ const ProductsManager = () => {
           </p>
         </div>
       ) : (
-        <div className="overflow-x-auto">
-          <table className="w-full bg-surface-container-lowest rounded-xl shadow-ambient overflow-hidden">
-            <thead>
-              <tr className="bg-surface-container text-on-surface font-body-sm text-body-sm">
-                <th scope="col" className="text-right p-4 font-medium">
-                  الصورة
-                </th>
-                <th scope="col" className="text-right p-4 font-medium">
-                  الاسم
-                </th>
-                <th scope="col" className="text-right p-4 font-medium">
-                  التصنيف
-                </th>
-                <th scope="col" className="text-right p-4 font-medium">
-                  السعر
-                </th>
-                <th scope="col" className="text-right p-4 font-medium">
-                  الماركة
-                </th>
-                <th scope="col" className="text-left p-4 font-medium">
-                  إجراءات
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {products.map((p, i) => (
-                <tr
-                  key={p.id}
-                  className="border-t border-surface-variant hover:bg-surface-container-low/50 transition-colors duration-160 animate-fade-in"
-                  style={{ animationDelay: `${i * 30}ms` }}
-                >
-                  <td className="p-4">
-                    {p.image_url ? (
-                      <img
-                        src={p.image_url}
-                        className="w-12 h-12 object-cover rounded-lg transition-transform duration-160 ease-out-strong hover:scale-110"
-                        alt="صورة مصغرة للمنتج"
-                        onError={(e) => {
-                          e.target.style.display = 'none'
-                        }}
-                      />
-                    ) : (
-                      <div className="w-12 h-12 bg-surface-container rounded-lg" />
+        <div className="bg-surface-container-lowest rounded-xl shadow-ambient overflow-hidden">
+          {/* Mobile card list */}
+          <div className="md:hidden divide-y divide-surface-variant">
+            {products.map((p, i) => (
+              <div
+                key={p.id}
+                className="flex items-center gap-3 p-4 animate-fade-in"
+                style={{ animationDelay: `${i * 30}ms` }}
+              >
+                {p.image_url ? (
+                  <img
+                    src={p.image_url}
+                    className="w-14 h-14 object-cover rounded-xl flex-shrink-0"
+                    alt="صورة المنتج"
+                    onError={(e) => { e.target.style.display = 'none' }}
+                  />
+                ) : (
+                  <div className="w-14 h-14 bg-surface-container rounded-xl flex-shrink-0" />
+                )}
+                <div className="flex-1 min-w-0">
+                  <p className="font-body-base text-body-base text-on-surface font-medium truncate">
+                    {p.name_ar}
+                  </p>
+                  <div className="flex items-center gap-1.5 mt-0.5 flex-wrap">
+                    <span className="text-primary font-bold font-body-sm text-body-sm">
+                      {parseFloat(p.price).toFixed(2)} JOD
+                    </span>
+                    {p.brand && (
+                      <span className="text-on-surface-variant font-body-sm text-body-sm">· {p.brand}</span>
                     )}
-                  </td>
-                  <td className="p-4 font-body-sm text-body-sm text-on-surface">{p.name_ar}</td>
-                  <td className="p-4 font-body-sm text-body-sm text-on-surface-variant">
-                    {p.category_name_ar}
-                  </td>
-                  <td className="p-4 font-body-sm text-body-sm text-on-surface font-medium">
-                    {parseFloat(p.price).toFixed(2)} JOD
-                  </td>
-                  <td className="p-4 font-body-sm text-body-sm text-on-surface-variant">
-                    {p.brand}
-                  </td>
-                  <td className="p-4 text-left">
-                    <button
-                      onClick={() => handleEdit(p)}
-                      className="text-primary font-body-sm hover:underline ml-3 transition-colors duration-160 active:opacity-60"
-                    >
-                      تعديل
-                    </button>
-                    <button
-                      onClick={() => handleDelete(p.id)}
-                      className="text-error font-body-sm hover:underline transition-colors duration-160 active:opacity-60"
-                    >
-                      حذف
-                    </button>
-                  </td>
+                  </div>
+                  {p.category_name_ar && (
+                    <span className="text-on-surface-variant font-label-caps text-label-caps text-xs mt-0.5 block">
+                      {p.category_name_ar}
+                    </span>
+                  )}
+                </div>
+                <div className="flex flex-col gap-1.5 flex-shrink-0">
+                  <button
+                    onClick={() => handleEdit(p)}
+                    className="text-primary font-label-caps text-xs px-3 py-1.5 rounded-lg bg-primary/8 active:scale-[0.97] transition-transform duration-160"
+                  >
+                    تعديل
+                  </button>
+                  <button
+                    onClick={() => handleDelete(p.id)}
+                    className="text-error font-label-caps text-xs px-3 py-1.5 rounded-lg bg-error/8 active:scale-[0.97] transition-transform duration-160"
+                  >
+                    حذف
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Desktop table */}
+          <div className="hidden md:block overflow-x-auto">
+            <table className="w-full">
+              <thead>
+                <tr className="bg-surface-container text-on-surface font-body-sm text-body-sm">
+                  <th scope="col" className="text-right p-4 font-medium">الصورة</th>
+                  <th scope="col" className="text-right p-4 font-medium">الاسم</th>
+                  <th scope="col" className="text-right p-4 font-medium">التصنيف</th>
+                  <th scope="col" className="text-right p-4 font-medium">السعر</th>
+                  <th scope="col" className="text-right p-4 font-medium">الماركة</th>
+                  <th scope="col" className="text-left p-4 font-medium">إجراءات</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {products.map((p, i) => (
+                  <tr
+                    key={p.id}
+                    className="border-t border-surface-variant hover:bg-surface-container-low/50 transition-colors duration-160 animate-fade-in"
+                    style={{ animationDelay: `${i * 30}ms` }}
+                  >
+                    <td className="p-4">
+                      {p.image_url ? (
+                        <img
+                          src={p.image_url}
+                          className="w-12 h-12 object-cover rounded-lg transition-transform duration-160 ease-out-strong hover:scale-110"
+                          alt="صورة مصغرة للمنتج"
+                          onError={(e) => { e.target.style.display = 'none' }}
+                        />
+                      ) : (
+                        <div className="w-12 h-12 bg-surface-container rounded-lg" />
+                      )}
+                    </td>
+                    <td className="p-4 font-body-sm text-body-sm text-on-surface">{p.name_ar}</td>
+                    <td className="p-4 font-body-sm text-body-sm text-on-surface-variant">{p.category_name_ar}</td>
+                    <td className="p-4 font-body-sm text-body-sm text-on-surface font-medium">
+                      {parseFloat(p.price).toFixed(2)} JOD
+                    </td>
+                    <td className="p-4 font-body-sm text-body-sm text-on-surface-variant">{p.brand}</td>
+                    <td className="p-4 text-left">
+                      <button
+                        onClick={() => handleEdit(p)}
+                        className="text-primary font-body-sm hover:underline ml-3 transition-colors duration-160 active:opacity-60"
+                      >
+                        تعديل
+                      </button>
+                      <button
+                        onClick={() => handleDelete(p.id)}
+                        className="text-error font-body-sm hover:underline transition-colors duration-160 active:opacity-60"
+                      >
+                        حذف
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       )}
     </div>

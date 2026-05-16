@@ -20,8 +20,8 @@ const container = {
 }
 
 const cell = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { type: 'spring', stiffness: 100, damping: 20 } },
+  hidden: { opacity: 0, transform: 'translateY(20px)' },
+  visible: { opacity: 1, transform: 'translateY(0px)', transition: { type: 'spring', stiffness: 100, damping: 20 } },
 }
 
 const CountingNumber = ({ value }) => {
