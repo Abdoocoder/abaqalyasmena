@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth, SignInButton, UserButton } from '@clerk/clerk-react'
+import { AnimatePresence, motion } from 'framer-motion'
 import logo from '../assets/logo.png'
 import Icon from './Icon'
 
@@ -136,39 +137,49 @@ const Navbar = () => {
         </div>
       </div>
 
-      <div
-        id="mobile-nav"
-        className={`md:hidden bg-surface dark:bg-inverse-surface border-t border-surface-variant dark:border-inverse-on-surface/20 px-margin-mobile pb-6 pt-2 flex flex-col gap-4 font-body-base text-body-base ${isMobileMenuOpen ? 'menu-enter' : 'hidden'}`}
-      >
-        {navLinks.map((link) => (
-          <Link
-            key={link.to}
-            to={link.to}
-            onClick={() => setIsMobileMenuOpen(false)}
-            className="text-on-surface-variant dark:text-inverse-on-surface hover:text-primary dark:hover:text-primary transition-colors duration-160 ease-out-strong py-3 px-2 rounded-lg"
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            id="mobile-nav"
+            className="md:hidden bg-surface dark:bg-inverse-surface border-t border-surface-variant dark:border-inverse-on-surface/20 overflow-hidden"
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.22, ease: [0.23, 1, 0.32, 1] }}
           >
-            {link.label}
-          </Link>
-        ))}
-        <div className="border-t border-surface-variant dark:border-inverse-on-surface/20 pt-4 mt-2">
-          {isLoaded && !isSignedIn && (
-            <SignInButton mode="modal" forceRedirectUrl="/admin">
-              <button className="w-full text-center text-label-caps font-label-caps text-primary dark:text-primary hover:bg-primary/10 px-3 py-3 rounded-xl transition-colors duration-160 ease-out-strong">
-                تسجيل الدخول
-              </button>
-            </SignInButton>
-          )}
-          {isLoaded && isSignedIn && (
-            <Link
-              to="/admin"
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="block text-center text-label-caps font-label-caps text-primary dark:text-primary hover:bg-primary/10 px-3 py-3 rounded-xl transition-colors duration-160 ease-out-strong"
-            >
-              لوحة التحكم
-            </Link>
-          )}
-        </div>
-      </div>
+            <div className="px-margin-mobile pb-6 pt-2 flex flex-col gap-4 font-body-base text-body-base">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.to}
+                  to={link.to}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="text-on-surface-variant dark:text-inverse-on-surface hover:text-primary dark:hover:text-primary transition-colors duration-160 ease-out-strong py-3 px-2 rounded-lg"
+                >
+                  {link.label}
+                </Link>
+              ))}
+              <div className="border-t border-surface-variant dark:border-inverse-on-surface/20 pt-4 mt-2">
+                {isLoaded && !isSignedIn && (
+                  <SignInButton mode="modal" forceRedirectUrl="/admin">
+                    <button className="w-full text-center text-label-caps font-label-caps text-primary dark:text-primary hover:bg-primary/10 px-3 py-3 rounded-xl transition-colors duration-160 ease-out-strong">
+                      تسجيل الدخول
+                    </button>
+                  </SignInButton>
+                )}
+                {isLoaded && isSignedIn && (
+                  <Link
+                    to="/admin"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="block text-center text-label-caps font-label-caps text-primary dark:text-primary hover:bg-primary/10 px-3 py-3 rounded-xl transition-colors duration-160 ease-out-strong"
+                  >
+                    لوحة التحكم
+                  </Link>
+                )}
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </nav>
   )
 }

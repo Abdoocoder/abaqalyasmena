@@ -66,7 +66,7 @@ const Home = () => {
           <div className="w-full max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop min-h-[100dvh] grid grid-cols-1 lg:grid-cols-2 gap-stack-lg lg:gap-16 items-center py-28 lg:py-20">
 
             {/* Text column — right side in RTL */}
-            <div className="flex flex-col justify-center order-last lg:order-none">
+            <div className="flex flex-col justify-center">
 
               {/* Location pill */}
               <motion.div
@@ -195,7 +195,7 @@ const Home = () => {
 
             {/* Image column — left side in RTL */}
             <motion.div
-              className="relative order-first lg:order-none"
+              className="relative"
               initial={{ opacity: 0, scale: 0.96 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ type: 'spring', stiffness: 100, damping: 20, delay: 0.02 }}

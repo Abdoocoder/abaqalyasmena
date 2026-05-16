@@ -104,7 +104,7 @@ const Footer = () => {
             href="https://www.abdoocoder.dev/"
             target="_blank"
             rel="noopener noreferrer"
-            className="opacity-70 hover:opacity-100 hover:text-primary dark:hover:text-primary transition-all duration-200 whitespace-nowrap"
+            className="opacity-70 hover:opacity-100 hover:text-primary dark:hover:text-primary transition-[opacity,color] duration-200 whitespace-nowrap"
           >
             تصميم وتطوير بواسطة <span className="font-semibold">Abdoo Coder</span>
           </a>

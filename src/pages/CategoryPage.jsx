@@ -65,7 +65,7 @@ const CategoryPage = () => {
               style={{ animationDelay: '40ms' }}
             />
           </header>
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-gutter">
+          <div className="grid grid-cols-2 md:grid-cols-2 xl:grid-cols-3 gap-gutter">
             {[1, 2, 3, 4, 5, 6].map((i) => (
               <div
                 key={i}
@@ -238,7 +238,7 @@ const CategoryPage = () => {
                 )}
               </div>
             ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-gutter">
+              <div className="grid grid-cols-2 md:grid-cols-2 xl:grid-cols-3 gap-gutter">
                 {filteredProducts.map((product, i) => (
                   <motion.div
                     key={product.id}
@@ -277,7 +277,7 @@ const CategoryPage = () => {
                         <Icon name="favorite" className="w-5 h-5" />
                       </span>
                     </div>
-                    <div className="p-4 flex flex-col gap-3 flex-1">
+                    <div className="p-3 md:p-4 flex flex-col gap-2 md:gap-3 flex-1">
                       <div className="flex items-center justify-between">
                         {product.brand && (
                           <span className="text-label-caps font-label-caps text-secondary bg-secondary-container px-2 py-1 rounded-full">

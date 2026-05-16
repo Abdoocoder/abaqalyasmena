@@ -161,12 +161,12 @@ const Contact = () => {
 
           {/* Map — sticky on desktop */}
           <div className="lg:col-span-2 lg:sticky lg:top-[100px]">
-            <div className="rounded-2xl overflow-hidden shadow-ambient min-h-[420px] relative bg-surface-container dark:bg-surface-container-dark">
+            <div className="rounded-2xl overflow-hidden shadow-ambient min-h-[280px] lg:min-h-[420px] relative bg-surface-container dark:bg-surface-container-dark">
               {contact && (
                 <iframe
                   title="موقع المتجر على خرائط جوجل"
                   src={`https://maps.google.com/maps?q=${encodeURIComponent(contact.maps_query)}&output=embed`}
-                  className="w-full h-full absolute inset-0 border-0 min-h-[420px]"
+                  className="w-full h-full absolute inset-0 border-0 min-h-[280px] lg:min-h-[420px]"
                   loading="lazy"
                   allowFullScreen
                 />

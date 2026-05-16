@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom'
 import PageTransition from '../components/PageTransition'
 import MagneticButton from '../components/MagneticButton'
 import Icon from '../components/Icon'
