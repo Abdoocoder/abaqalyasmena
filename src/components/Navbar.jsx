@@ -167,13 +167,24 @@ const Navbar = () => {
                   </SignInButton>
                 )}
                 {isLoaded && isSignedIn && (
-                  <Link
-                    to="/admin"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="block text-center text-label-caps font-label-caps text-primary dark:text-primary hover:bg-primary/10 px-3 py-3 rounded-xl transition-colors duration-160 ease-out-strong"
-                  >
-                    لوحة التحكم
-                  </Link>
+                  <div className="flex items-center justify-between px-2">
+                    <Link
+                      to="/admin"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className="text-label-caps font-label-caps text-primary dark:text-primary hover:bg-primary/10 px-3 py-3 rounded-xl transition-colors duration-160 ease-out-strong"
+                    >
+                      لوحة التحكم
+                    </Link>
+                    <UserButton
+                      afterSignOutUrl="/"
+                      appearance={{
+                        elements: {
+                          userButtonAvatarBox: 'w-8 h-8',
+                          userButtonTrigger: 'hover:opacity-80 transition-opacity duration-160',
+                        },
+                      }}
+                    />
+                  </div>
                 )}
               </div>
             </div>
